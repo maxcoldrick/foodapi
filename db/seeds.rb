@@ -1,5 +1,5 @@
 5.times do
-  article.create({
+  Food.create({
     dish: Faker::Food.dish,
     measurement: Faker::Food.measurement
     })
