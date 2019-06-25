@@ -1,6 +1,6 @@
 class FoodController < ApplicationController
   def index
-    meal = Food.order('created_at DESC')
+    meal = Food.order('id DESC')
     render json: {status: 'SUCCESS', message: 'Loaded meal details', data:meal},status: :ok
   end
 
@@ -16,9 +16,8 @@ class FoodController < ApplicationController
       render json: {status: 'SUCCESS', message: 'Saved meal', data:article},status: :ok
     else
       render json: {status: 'ERROR', message: 'Not saved', data:article.errors},status: :unprocessable_entity
+    end
   end
-
-  private
 
   def meal_params
     params.permit(:dish, :measurement)
