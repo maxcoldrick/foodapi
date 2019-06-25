@@ -1,6 +1,6 @@
 5.times do
   article.create({
-    title: Faker::Book.title,
-    body: Faker::Lorem.sentence
+    dish: Faker::Food.dish,
+    measurement: Faker::Food.measurement
     })
 end
