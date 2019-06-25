@@ -15,6 +15,11 @@ ActiveRecord::Schema.define(version: 2019_06_25_190413) do
   create_table "foods", force: :cascade do |t|
     t.text "dish"
     t.text "measurement"
+    t.text "description"
+    t.text "ingredient"
+    t.text "metric_measurement"
+    t.text "spice"
+    t.text "vegetables"
   end
 
 end
