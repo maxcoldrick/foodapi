@@ -3,8 +3,6 @@ class CreateFoods < ActiveRecord::Migration[5.2]
     create_table :foods do |t|
       t.text :dish
       t.text :measurement
-
-      t.timestamps
     end
   end
 end

@@ -15,8 +15,6 @@ ActiveRecord::Schema.define(version: 2019_06_25_190413) do
   create_table "foods", force: :cascade do |t|
     t.text "dish"
     t.text "measurement"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
 end
