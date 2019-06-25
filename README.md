@@ -1,24 +1,5 @@
-# README
+FoodAPI
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Demo of using Ruby on Rails to build a RESTful API to an SQLite3 database.
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Inspired by a bizarrely easy to follow YouTube tutorial: https://www.youtube.com/watch?v=QojnRc7SS9o
