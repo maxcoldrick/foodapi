@@ -13,9 +13,24 @@ class FoodController < ApplicationController
     meal = Food.new(meal_params)
 
     if meal.save
-      render json: {status: 'SUCCESS', message: 'Saved meal', data:article},status: :ok
+      render json: {status: 'SUCCESS', message: 'Saved meal', data:meal},status: :ok
     else
-      render json: {status: 'ERROR', message: 'Not saved', data:article.errors},status: :unprocessable_entity
+      render json: {status: 'ERROR', message: 'Not saved', data:meal.errors},status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    meal = Food.find(params[:id])
+    meal.destroy
+    render json: {status: 'SUCCESS', message: 'Deleted meal', data:meal},status: :ok
+  end
+
+  def update
+    meal = Food.find(params[:id])
+    if meal.update_attributes(meal_params)
+      render json: {status: 'SUCCESS', message: 'Updated meal', data:meal},status: :ok
+    else
+      render json: {status: 'ERROR', message: 'Not updated', data:meal.errors},status: :unprocessable_entity
     end
   end
 
