@@ -1,4 +1,4 @@
 class Food < ApplicationRecord
-  validates :title, presence: true
-  validates :body, presence: true
+  validates :dish, presence: true
+  validates :measurement, presence: true
 end
