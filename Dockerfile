@@ -1,16 +1,21 @@
-FROM alpine:3.2
+FROM alpine:3.10
 
-RUN apk update
-RUN apk upgrade
-RUN apk add curl wget bash
-RUN apk add ruby ruby-bundler
-RUN rm -rf /var/cache/apk/*
+ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base
+ENV RUBY_PACKAGES ruby ruby-io-console ruby-bundler
+
+RUN apk add sqlite && \
+    apk update && \
+    apk upgrade && \
+    apk add $BUILD_PACKAGES && \
+    apk add $RUBY_PACKAGES && \
+    rm -rf /var/cache/apk/*
 
 RUN mkdir /usr/app
 WORKDIR /usr/app
 
 COPY Gemfile /usr/app/
 COPY Gemfile.lock /usr/app/
+RUN bundle update --bundler
 RUN bundle install
 
 COPY . /usr/app
