@@ -1,12 +1,4 @@
-150.times do
-  Food.create({
-    dish: Faker::Food.dish,
-    measurement: Faker::Food.measurement,
-    description: Faker::Food.description,
-    ingredient: Faker::Food.ingredient,
-    measurement: Faker::Food.measurement,
-    metric_measurement: Faker::Food.metric_measurement,
-    spice: Faker::Food.spice,
-    vegetables: Faker::Food.vegetables
-    })
-end
+CREATE TABLE t_random AS SELECT s, md5(random()::text) FROM generate_Series(1,5) s;
+INSERT INTO t_random VALUES (generate_series(1,1000000000), md5(random()::text));
+
+SELECT pg_size_pretty(pg_relation_size('t_random'));

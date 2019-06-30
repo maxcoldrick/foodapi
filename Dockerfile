@@ -13,6 +13,7 @@ RUN apk update && \
 RUN mkdir /usr/app
 WORKDIR /usr/app
 
+COPY seed.sql /docker-entrypoint-initdb.d/
 COPY Gemfile /usr/app/
 COPY Gemfile.lock /usr/app/
 RUN bundle update --bundler
