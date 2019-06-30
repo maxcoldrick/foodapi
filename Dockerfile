@@ -1,9 +1,10 @@
-FROM alpine:3.10
+FROM ruby:alpine
 
 ENV BUILD_PACKAGES bash curl-dev ruby-dev build-base
 ENV RUBY_PACKAGES ruby ruby-io-console ruby-bundler
 
 RUN apk add sqlite && \
+    apk add sqlite-libs && \
     apk update && \
     apk upgrade && \
     apk add $BUILD_PACKAGES && \
