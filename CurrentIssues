@@ -1,1 +1,6 @@
-Can start docker image with correct files but bundler still is struggling
+$ docker-compose up
+postgres started
+api started
+
+BUT
+No data in db
