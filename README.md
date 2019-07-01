@@ -1,9 +1,5 @@
 # FoodAPI
 
-Demo of using Ruby on Rails to build a RESTful API to an SQLite3 database.
+Containerised (Docker) implementation of an API (ruby) to a PostgreSQL db.
 
-The jist is that Rails gives you the file structure, you give it the values. 
-
-Used https://github.com/stympy/faker to quickly populate the database.
-
-Inspired by a bizarrely easy to follow YouTube tutorial: https://www.youtube.com/watch?v=QojnRc7SS9o
+The db can be populated by sending HTTP requests to the API, which is implemented in Java under databaseFillerUpper.
