@@ -17,7 +17,7 @@ public class Sender {
                 ContentType.APPLICATION_JSON);
 
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://localhost:3000/food");
+        HttpPost request = new HttpPost("http://docker.for.mac.localhost:3000/food");
         request.setEntity(entity);
 
         HttpResponse response = httpClient.execute(request);
