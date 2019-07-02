@@ -27,8 +27,8 @@ public class Sender {
     private static Object create(){
         Food i = new Food();
 
-        i.setDish("Eggs");
-        i.setMeasurement("Five");
+        i.setDish("Beans");
+        i.setMeasurement("One Hundred");
 
         return i;
 
