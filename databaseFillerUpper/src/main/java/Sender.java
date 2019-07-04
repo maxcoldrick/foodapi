@@ -9,7 +9,8 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import java.io.IOException;
 
 public class Sender {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+        Thread.sleep(5000);
         Object j = create();
         Gson g = MakeJson.toJson(j);
         String payload = g.toJson(j);
@@ -17,7 +18,7 @@ public class Sender {
                 ContentType.APPLICATION_JSON);
 
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://docker.for.mac.localhost:3000/food");
+        HttpPost request = new HttpPost("http://localhost:3000/food");
         request.setEntity(entity);
 
         HttpResponse response = httpClient.execute(request);
