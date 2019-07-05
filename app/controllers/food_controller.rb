@@ -1,4 +1,10 @@
 class FoodController < ApplicationController
+before_action :authenticate_user!
+
+  def skip_trackable
+    request.env['warden'].request.env['devise.skip_trackable'] = '1'
+  end
+
   def index
     meal = Food.order('id DESC')
     render json: {status: 'SUCCESS', message: 'Loaded meal details', data:meal},status: :ok
@@ -38,3 +44,5 @@ class FoodController < ApplicationController
     params.permit(:dish, :measurement, :description, :ingredient, :spice)
   end
 end
+
+#token: yl4PZJgz_C_3i5gEadjWSA
