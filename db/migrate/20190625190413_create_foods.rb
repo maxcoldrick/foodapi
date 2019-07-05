@@ -6,9 +6,7 @@ class CreateFoods < ActiveRecord::Migration[5.2]
       t.text :description
       t.text :ingredient
       t.text :measurement
-      t.text :metric_measurement
       t.text :spice
-      t.text :vegetables
     end
   end
 end

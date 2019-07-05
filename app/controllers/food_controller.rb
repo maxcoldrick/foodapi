@@ -35,6 +35,6 @@ class FoodController < ApplicationController
   end
 
   def meal_params
-    params.permit(:dish, :measurement)
+    params.permit(:dish, :measurement, :description, :ingredient, :spice)
   end
 end
