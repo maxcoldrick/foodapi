@@ -24,8 +24,6 @@ gem 'bcrypt', '~> 3.1.7'
 
 #docker-compose run --rm web rails g devise_token_auth:install User auth
 
-
-
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 
