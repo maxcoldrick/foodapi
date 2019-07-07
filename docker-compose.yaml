@@ -17,3 +17,10 @@ services:
       DATABASE_URL: postgres://postgres@db
   db:
     image: postgres:10.3-alpine
+  java:
+    build: databaseFillerUpper/
+    image: fillup
+    links:
+      - web
+    depends_on:
+      - web
