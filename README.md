@@ -1,9 +1,14 @@
 # FoodAPI
 
-Containerised (Docker) implementation of an API (ruby) to a PostgreSQL db.
+Containerised (Docker) implementation of an API (ruby) to a PostgreSQL db, with a component to fill
+the database with entries via POST to the API (Java - /databaseFillerUpper).
 
 ## Usage
 Should be as simple as: `docker-compose up`
+This will start three containers: 
+- The API
+- The Database
+- The databaseFillerUpper
 
 ### Example node
 ```
@@ -160,6 +165,4 @@ Example response:
 }
 ```
 ###### Alternatives
-I've implemented a system to send bulk POST requests to the API here (Java): www.github.com/maxcoldrick/DatabaseFillerUpper
-
-You could also use the Postman collection: https://www.getpostman.com/collections/71d21d4a010bc0528206
+You could also use this Postman collection: https://www.getpostman.com/collections/71d21d4a010bc0528206
