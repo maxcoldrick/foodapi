@@ -1,4 +1,5 @@
 import Auth.AuthedUser;
+import Auth.CreateUser;
 import Auth.LogIn;
 import Food.Food;
 import Food.FoodFactory;
@@ -15,7 +16,19 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import java.io.IOException;
 
 public class Sender {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
+
+        //RAW
+        Thread.sleep(20000);
+
+        // This is no better than thread.sleep.
+        CreateUser.testUser();
+//        System.out.println(response.getStatusLine().getStatusCode());
+//        if success: log it
+//        if failure: log why
+//         we should also return the value from the method so that we can turn it into an object and pass it to the
+//          li.authMe method
+
         LogIn li = new LogIn();
         FoodFactory ff = new FoodFactory();
         Object[] j = ff.FoodJect();
@@ -32,7 +45,7 @@ public class Sender {
             System.out.println(payload);
 
             HttpClient httpClient = HttpClientBuilder.create().build();
-            HttpPost request = new HttpPost("http://localhost:3000/food");
+            HttpPost request = new HttpPost("http://web:3000/food");
             request.addHeader("access-token", authedPete.getAccessToken());
             request.addHeader("token-type", "Bearer");
             request.addHeader("client", authedPete.getClient());

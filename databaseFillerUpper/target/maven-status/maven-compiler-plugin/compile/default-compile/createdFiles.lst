@@ -1,4 +1,5 @@
 Auth/User.class
+Auth/CreateUser.class
 Sender.class
 Food/FoodSerializer.class
 Auth/UserSerializer.class
