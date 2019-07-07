@@ -1,0 +1,8 @@
+Auth/User.class
+Sender.class
+Food/FoodSerializer.class
+Auth/UserSerializer.class
+Food/FoodFactory.class
+Food/Food.class
+Auth/LogIn.class
+Auth/AuthedUser.class
