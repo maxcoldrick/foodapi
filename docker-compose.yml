@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    image: maxcoldrick/foodapi
+    entrypoint: migrate/dbmigrate.sh
+    volumes:
+      - ${WEBAPP_STORAGE_HOME}/app
+    working_dir: /app
+    command: puma
+    ports:
+      - 3000:3000
+    environment:
+      DATABASE_URL: dbformcfoodapi.postgres.database.azure.com
+  # db:
+  #   image: postgres:10.3-alpine
+  java:
+    build: databaseFillerUpper/
+    image: fillup
+    links:
+      - web
+    depends_on:
+      - web
