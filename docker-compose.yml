@@ -5,7 +5,7 @@ services:
     build: .
     image: maxcoldrick/foodapi
     volumes:
-       - ./:/app
+      - ${WEBAPP_STORAGE_HOME}/
     working_dir: /app
     command: puma
     ports:
