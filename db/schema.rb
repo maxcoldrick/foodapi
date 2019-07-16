@@ -13,6 +13,8 @@
 ActiveRecord::Schema.define(version: 2019_07_05_184915) do
 
   # These are extensions that must be enabled in order to support this database
+  enable_extension "pg_buffercache"
+  enable_extension "pg_stat_statements"
   enable_extension "plpgsql"
 
   create_table "foods", force: :cascade do |t|

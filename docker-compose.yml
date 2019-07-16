@@ -11,13 +11,13 @@ services:
     command: puma
     ports:
       - 3000:3000
-    environment:
-      DATABASE_URL: dbformcfoodapi.postgres.database.azure.com
+    # environment:
+    #   DATABASE_URL: dbformcfoodapi.postgres.database.azure.com
   # db:
   #   image: postgres:10.3-alpine
   java:
     build: databaseFillerUpper/
-    image: fillup
+    image: maxcoldrick/fillerupper
     links:
       - web
     depends_on:
