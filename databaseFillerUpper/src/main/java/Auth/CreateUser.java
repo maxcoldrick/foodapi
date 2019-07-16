@@ -15,7 +15,7 @@ public class CreateUser {
         StringEntity entity = new StringEntity(payload,
                 ContentType.APPLICATION_JSON);
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://web:3000/auth");
+        HttpPost request = new HttpPost("http://mcfoodapi.azurewebsites.net/auth");
 
         request.setEntity(entity);
 

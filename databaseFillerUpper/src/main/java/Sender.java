@@ -19,7 +19,7 @@ public class Sender {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         //RAW
-        Thread.sleep(20000);
+        //Thread.sleep(20000);
 
         // This is no better than thread.sleep.
         CreateUser.testUser();
@@ -45,7 +45,7 @@ public class Sender {
             System.out.println(payload);
 
             HttpClient httpClient = HttpClientBuilder.create().build();
-            HttpPost request = new HttpPost("http://web:3000/food");
+            HttpPost request = new HttpPost("http://mcfoodapi.azurewebsites.net/food");
             request.addHeader("access-token", authedPete.getAccessToken());
             request.addHeader("token-type", "Bearer");
             request.addHeader("client", authedPete.getClient());

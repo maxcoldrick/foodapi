@@ -26,7 +26,7 @@ public class LogIn {
                 ContentType.APPLICATION_JSON);
 
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost request = new HttpPost("http://web:3000/auth/sign_in");
+        HttpPost request = new HttpPost("http://mcfoodapi.azurewebsites.net/auth/sign_in");
 
         request.setEntity(entity);
 
