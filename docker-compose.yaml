@@ -24,3 +24,11 @@ services:
       - web
     depends_on:
       - web
+  server:
+    build:
+      context: ./nginx/
+      dockerfile: ./nginx/DockerFile
+    depends_on:      
+      - web
+    ports:
+      - 80:80
