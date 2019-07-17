@@ -25,10 +25,7 @@ services:
     depends_on:
       - web
   server:
-    build:
-      context: ./nginx/
-      dockerfile: ./nginx/DockerFile
-    depends_on:      
-      - web
+    build: nginx/
     ports:
       - 80:80
+      - 443:443
