@@ -11,10 +11,10 @@ def attempt_rabbitmq_connection()
     connection = Bunny.new(hostname: 'rabbitmq')
     connection.start
     channel = connection.create_channel
-    queue = channel.queue('hello')
+    queue = channel.queue('readinessChecker')
 
-    channel.default_exchange.publish('Hello World!', routing_key: queue.name)
-    puts " [x] Sent 'Hello World!'"
+    channel.default_exchange.publish('Ready', routing_key: queue.name)
+    puts "Exposed myself as ready"
     connection.close
 
   rescue Bunny::TCPConnectionFailedForAllHosts => e
@@ -22,7 +22,7 @@ def attempt_rabbitmq_connection()
 
     sleep(11)
 
-    # Only retry 3 times, otherwise something went badly wrong
-    retry if (retries += 1) < 3
+    # Only retry 5 times, otherwise something went badly wrong
+    retry if (retries += 1) < 5
   end
 end
