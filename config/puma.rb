@@ -1,5 +1,4 @@
-require 'bunny'
-
+require './rabbitmq/connector.rb'
 # Puma can serve each request in a thread from an internal thread pool.
 # The `threads` method setting takes two numbers: a minimum and maximum.
 # Any libraries that use thread pools should be configured to match
@@ -35,35 +34,7 @@ end
 # This is called everytime a worker is to be started.
 #
 on_worker_boot do
-
-  # Try to connect to rabbitmq
-  begin
-    retries ||= 0
-
-    # This doesn't go first time, so print how many it takes
-    # TODO backoff strategy
-    puts "Attempting to connect, attempt: #{ retries+1 }"
-    connection = Bunny.new(hostname: 'rabbitmq')
-    connection.start
-    channel = connection.create_channel
-    queue = channel.queue('hello')
-    
-    channel.default_exchange.publish('Hello World!', routing_key: queue.name)
-    puts " [x] Sent 'Hello World!'"
-    connection.close
-
-  rescue Bunny::TCPConnectionFailedForAllHosts => e
-    puts "Host isn't ready. Trying again in 10s..."
-
-    sleep(10)
-
-    # Only retry 3 times, otherwise something went badly wrong
-    retry if (retries += 1) < 3
-
-  rescue
-
-
-  end
+  attempt_connection()
 end
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
