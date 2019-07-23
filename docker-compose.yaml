@@ -12,15 +12,23 @@ services:
     ports:
       - 3000:3000
     depends_on:
+      - rabbitmq
       - db
     environment:
       DATABASE_URL: postgres://postgres@db
   db:
     image: postgres:10.3-alpine
-  java:
-    build: databaseFillerUpper/
-    image: fillup
-    links:
-      - web
-    depends_on:
-      - web
+  # java:
+  #   build: databaseFillerUpper/
+  #   image: fillup
+  #   links:
+  #     - web
+  #   depends_on:
+  #     - web
+  rabbitmq:
+    image: rabbitmq
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - "7000:15672"
+      - "7001:5672"

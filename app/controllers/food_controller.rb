@@ -44,5 +44,3 @@ before_action :authenticate_user!
     params.permit(:dish, :measurement, :description, :ingredient, :spice)
   end
 end
-
-#token: yl4PZJgz_C_3i5gEadjWSA
