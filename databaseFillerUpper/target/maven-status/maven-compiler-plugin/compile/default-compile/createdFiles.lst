@@ -3,6 +3,7 @@ Auth/CreateUser.class
 Sender.class
 Food/FoodSerializer.class
 Auth/UserSerializer.class
+RabbitMQ/Connector.class
 Food/FoodFactory.class
 Food/Food.class
 Auth/LogIn.class
