@@ -6,7 +6,6 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DeliverCallback;
 
 import java.io.IOException;
-import java.util.concurrent.TimeoutException;
 
 public class Connector {
     private final static String QUEUE_NAME = "hello";
