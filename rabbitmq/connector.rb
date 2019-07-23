@@ -1,6 +1,6 @@
 require 'bunny'
 
-def attempt_connection()
+def attempt_rabbitmq_connection()
   # Try to connect to rabbitmq
   begin
     retries ||= 0

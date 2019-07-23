@@ -34,7 +34,7 @@ end
 # This is called everytime a worker is to be started.
 #
 on_worker_boot do
-  attempt_connection()
+  attempt_rabbitmq_connection()
 end
 
 # Redirect STDOUT and STDERR to files specified. The 3rd parameter
