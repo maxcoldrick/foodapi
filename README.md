@@ -1,14 +1,16 @@
 # FoodAPI
 
 Containerised (Docker) implementation of an API (ruby) to a PostgreSQL db, with a component to fill
-the database with entries via POST to the API (Java - /databaseFillerUpper).
+the database with entries via POST to the API (Java - /databaseFillerUpper), with connections routed via Nginx and service discovery implemented with RabbitMQ queues.
 
 ## Usage
 Should be as simple as: `docker-compose up`
-This will start three containers: 
-- The API
-- The Database
-- The databaseFillerUpper
+This will start multiple containers:
+- API (Ruby on Rails)
+- Database (PostgreSQL)
+- databaseFillerUpper (Java)
+- RabbitMQ
+- Nginx
 
 ### Example node
 ```
