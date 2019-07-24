@@ -25,6 +25,7 @@ services:
       - web
     depends_on:
       - web
+<<<<<<< HEAD
   rabbitmq:
     image: rabbitmq
     container_name: rabbitmq
@@ -32,3 +33,10 @@ services:
     ports:
       - "7000:15672"
       - "7001:5672"
+=======
+  server:
+    build: nginx/
+    ports:
+      - 80:80
+      - 443:443
+>>>>>>> origin/nginx
