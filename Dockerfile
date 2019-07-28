@@ -13,6 +13,7 @@ RUN apk update && \
 RUN mkdir /usr/app
 WORKDIR /usr/app
 
+COPY ./ /app
 COPY Gemfile /usr/app/
 COPY Gemfile.lock /usr/app/
 RUN bundle update --bundler

@@ -8,7 +8,9 @@ def attempt_rabbitmq_connection()
     # This doesn't go first time, so print how many it takes
     # TODO backoff strategy
     puts "Attempting to connect, attempt: #{ retries+1 }"
-    connection = Bunny.new(hostname: 'rabbitmq')
+
+    # Declared port 7001 for k8s which is 7001:5672
+    connection = Bunny.new(hostname: 'rabbitmq', port: 7001)
     connection.start
     channel = connection.create_channel
     queue = channel.queue('readinessChecker')

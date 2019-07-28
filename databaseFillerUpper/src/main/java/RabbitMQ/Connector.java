@@ -14,6 +14,9 @@ public class Connector {
         ConnectionFactory factory = new ConnectionFactory();
         factory.setHost("rabbitmq");
 
+        // Set port for k8s
+        factory.setPort(7001);
+
         boolean repeat=true;
         while(repeat)
         {
@@ -33,7 +36,7 @@ public class Connector {
                 repeat=false;
             }
             catch (IOException e) {
-                System.out.println("Failed to connect. Retrying in 10secs...");
+                System.out.println("Failed to connect. Retrying in 10secs...maybe....");
                 Thread.sleep(10000);
             }
         }

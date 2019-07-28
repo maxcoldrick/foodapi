@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kompose.cmd: kompose convert
+    kompose.cmd: kompose convert -v
     kompose.version: 1.18.0 ()
   creationTimestamp: null
   labels:
@@ -10,8 +10,7 @@ metadata:
   name: web
 spec:
   replicas: 1
-  strategy:
-    type: Recreate
+  strategy: {}
   template:
     metadata:
       creationTimestamp: null
@@ -21,21 +20,16 @@ spec:
       containers:
       - args:
         - puma
+        command:
+        - migrate/dbmigrate.sh
         env:
         - name: DATABASE_URL
           value: postgres://postgres@db
-        image: web
+        image: maxcoldrick/foodapi
         name: web
         ports:
         - containerPort: 3000
         resources: {}
-        volumeMounts:
-        - mountPath: /app
-          name: web-claim0
         workingDir: /app
       restartPolicy: Always
-      volumes:
-      - name: web-claim0
-        persistentVolumeClaim:
-          claimName: web-claim0
 status: {}
