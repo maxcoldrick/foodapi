@@ -6,7 +6,7 @@ A multi-container Kubernetes deployment.
 `$ kompose up`
 
 ## The Principle
-Each of the following apps / services run in their own containers: `web`, `db`, `rabbitmq`,`server`, `java`.
+Each of the following apps / services run in their own containers / pods: `web`, `db`, `rabbitmq`,`server`, `java`.
 
 
 The `web` application initialises the tables in the PostgreSQL database that is running on `db` 
