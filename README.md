@@ -1,18 +1,44 @@
 # FoodAPI
 
-Containerised (Docker) implementation of an API (ruby) to a PostgreSQL db, with a component to fill
-the database with entries via POST to the API (Java - /databaseFillerUpper), with connections routed via Nginx and service discovery implemented with RabbitMQ queues.
+A multi-container Kubernetes deployment.
 
 ## Usage
-Should be as simple as: `docker-compose up`
-This will start multiple containers:
-- API (Ruby on Rails)
-- Database (PostgreSQL)
-- databaseFillerUpper (Java)
-- RabbitMQ
-- Nginx
+`$ kompose up`
 
-### Example node
+## The Principle
+Each of the following apps / services run in their own containers: `web`, `db`, `rabbitmq`,`server`, `java`.
+
+
+The `web` application initialises the tables in the PostgreSQL database that is running on `db` 
+
+`web` uses a [Puma](https://github.com/puma/puma) webserver to expose a RESTful interface (with [Devise](https://github.com/plataformatec/devise) token auth) on ActiveRecord CRUD methods which can be used on the database (returning JSON, the people's format).
+
+The `web` application then exposes itself as 'ready for connections' to the `RabbitMQ` server, which other apps and services can wait for if they are dependent on the API.
+
+[`java`](https://github.com/maxcoldrick/foodapi/tree/master/databaseFillerUpper) acts as a test for the API (without any validation...). `java` establishes a connection to `RabbitMQ` and waits for the API to say "I'm ready!". It then uses [JavaFaker](https://github.com/DiUS/java-faker) to generate 100 `valid-but-bogus` entries. It then generates a user for API authentication, and posts the `valid-but-bogus` content at the API.
+
+The `server` container is an Nginx server which routes traffic away from the api if just visiting on port 80.
+
+The whole thing is stitched together with Kubernetes and started with `kompose up`. The architecture of which looks a bit like this:
+
+```
+NAME                           READY     STATUS    RESTARTS   AGE
+pod/db-657cdb6db-k5qn8         1/1       Running   0          22h
+pod/java-5b887c598c-zxqlg      1/1       Running   0          22h
+pod/rabbitmq-5d7d7ff66-b8bjd   1/1       Running   0          22h
+pod/server-754f8b969c-96bnq    1/1       Running   0          22h
+pod/web-f889b58cd-cnwvd        1/1       Running   0          22h
+
+NAME                 TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)             AGE
+service/db           ClusterIP   10.109.82.49    <none>        5432/TCP            22h
+service/kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP             4d
+service/rabbitmq     ClusterIP   10.99.129.133   <none>        7000/TCP,7001/TCP   22h
+service/server       ClusterIP   10.100.196.7    <none>        80/TCP,443/TCP      22h
+service/web          ClusterIP   10.110.3.161    <none>        3000/TCP            22h
+```
+
+### Interacting with the API
+#### Example node
 ```
 {
     "id": 102,
@@ -23,8 +49,6 @@ This will start multiple containers:
     "spice": "Nigella"
 }
 ```
-
-### Interacting with the API
 #### Authentication
 Handled by the Devise gem, an authentication token is required in the header of each request.
 Authentication lives under the /auth/ route.
