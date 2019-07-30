@@ -11,15 +11,15 @@ Each of the following apps / services run in their own containers / pods: `web`,
 
 The `web` application initialises the tables in the PostgreSQL database that is running on `db` 
 
-`web` uses a [Puma](https://github.com/puma/puma) webserver to expose a RESTful interface (with [Devise](https://github.com/plataformatec/devise) token auth) on ActiveRecord CRUD methods which can be used on the database (returning JSON, the people's format).
+`web` uses a [Puma](https://github.com/puma/puma) webserver to expose an API with a RESTful interface (and [Devise](https://github.com/plataformatec/devise) token auth) to the DB and utilises ActiveRecord CRUD methods for database operations - the API returns JSON (the people's format).
 
-The `web` application then exposes itself as 'ready for connections' to the `RabbitMQ` server, which other apps and services can wait for if they are dependent on the API.
+The `web` application then exposes itself as 'ready for connections' to the `RabbitMQ` server, other apps and services can wait for this update if they are dependent on the API.
 
-[`java`](https://github.com/maxcoldrick/foodapi/tree/master/databaseFillerUpper) acts as a test for the API (without any validation...). `java` establishes a connection to `RabbitMQ` and waits for the API to say "I'm ready!". It then uses [JavaFaker](https://github.com/DiUS/java-faker) to generate 100 `valid-but-bogus` entries. It then generates a user for API authentication, and posts the `valid-but-bogus` content at the API.
+[`java`](https://github.com/maxcoldrick/foodapi/tree/master/databaseFillerUpper) acts as a testing suite for the API (WiP). `java` establishes a connection to `RabbitMQ` and waits for the API to say "I'm ready!". It then uses [JavaFaker](https://github.com/DiUS/java-faker) to generate some `valid-but-bogus` entries and POSTs them at the API (has to generate a token first).
 
-The `server` container is an Nginx server which routes traffic away from the api if just visiting on port 80.
+The `server` container is an Nginx server which routes traffic away from the API if necessary.
 
-The whole thing is stitched together with Kubernetes and started with `kompose up`. The architecture of which looks a bit like this:
+The whole thing is stitched together with Kubernetes and utilises a [kompose](https://github.com/kubernetes/kompose) format for deployment. It's a a one-pod-per-container setup with services exposing ports for interconnectivity of the pods. The architecture of it looks a bit like this:
 
 ```
 NAME                           READY     STATUS    RESTARTS   AGE
