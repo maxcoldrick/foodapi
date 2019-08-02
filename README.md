@@ -3,14 +3,21 @@
 A multi-container Kubernetes deployment.
 
 ## Usage
-With a Kubernetes cluster already running, and [Terraform](https://www.terraform.io/) installed and running, you can run `$ terraform apply` to initiate the cluster according to the Terraform config file: `config.tf`.
+### Pre-Requisites
+A Kubernetes Cluster
+
+[Terraform](https://www.terraform.io/) installed and running.
+
+To initiate the Kubernetes cluster according to the Terraform config file: `config.tf`:
+
+`$ terraform apply` 
 
 ## The Principle
 Each of the following apps / services can run in their own containers / pods: `web`, `db`, `rabbitmq`,`server`, `java`.
 
 `server` and `java` are mostly optional.
 
-The `web` application initialises the tables in the PostgreSQL database that is running on `db`
+The `web` application initialises the tables in the PostgreSQL database that is running on `db`.
 
 `web` uses a [Puma](https://github.com/puma/puma) webserver to expose an API with a RESTful interface (and [Devise](https://github.com/plataformatec/devise) token auth) to the DB and utilises ActiveRecord CRUD methods for database operations - the API returns JSON (the people's format).
 
@@ -19,6 +26,8 @@ The `web` application then exposes itself as 'ready for connections' to the `Rab
 [`java`](https://github.com/maxcoldrick/foodapi/tree/master/databaseFillerUpper) acts as a testing suite for the API (WiP). `java` establishes a connection to `RabbitMQ` and waits for the API to say "I'm ready!". It then uses [JavaFaker](https://github.com/DiUS/java-faker) to generate some `valid-but-bogus` entries and POSTs them at the API (has to generate a token first).
 
 The `server` container is an Nginx server which routes traffic away from the API if necessary.
+
+For a viewpoint from an Infrastructure as Code perspective, you could look at the `config.tf` file.
 
 The whole thing is stitched together with Kubernetes and utilises a [kompose](https://github.com/kubernetes/kompose) format for deployment. It's a a one-pod-per-container setup with services exposing ports for interconnectivity of the pods. The architecture of it looks a bit like this:
 
