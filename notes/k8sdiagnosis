@@ -1,0 +1,13 @@
+# Get events for container startup. Hanging ContainerCreating
+kc describe pods
+
+# Tail logs on pod
+kc logs --follow $pod
+
+# sh shell usually only installed on alpine images
+- kubectl exec -it $pod -- /bin/sh
+-- apk update && apk add curl
+
+# Scale down & up
+kubectl scale deployment java --replicas=0
+kubectl scale deployment java --replicas=1
