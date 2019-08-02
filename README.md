@@ -3,18 +3,13 @@
 A multi-container Kubernetes deployment.
 
 ## Usage
-
 `$ kompose up`
-
-#### Infrastructure as Code
-The `docker-compose.yaml` file is a reflection of the infrastructure as a whole. I used `kompose convert` to convert that into the multiple `-deployment.yaml` and `-service.yaml` Kubernetes resources you see in the root directory...
-
 
 ## The Principle
 Each of the following apps / services run in their own containers / pods: `web`, `db`, `rabbitmq`,`server`, `java`.
 
 
-The `web` application initialises the tables in the PostgreSQL database that is running on `db`
+The `web` application initialises the tables in the PostgreSQL database that is running on `db` 
 
 `web` uses a [Puma](https://github.com/puma/puma) webserver to expose an API with a RESTful interface (and [Devise](https://github.com/plataformatec/devise) token auth) to the DB and utilises ActiveRecord CRUD methods for database operations - the API returns JSON (the people's format).
 
