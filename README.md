@@ -5,9 +5,11 @@ A multi-container Kubernetes deployment.
 ## Usage
 ### Pre-Requisites
 A Kubernetes Cluster
+
 [Terraform](https://www.terraform.io/) installed and running.
 
 To initiate the Kubernetes cluster according to the Terraform config file: `config.tf`:
+
 `$ terraform apply` 
 
 ## The Principle
@@ -15,7 +17,7 @@ Each of the following apps / services can run in their own containers / pods: `w
 
 `server` and `java` are mostly optional.
 
-The `web` application initialises the tables in the PostgreSQL database that is running on `db`
+The `web` application initialises the tables in the PostgreSQL database that is running on `db`.
 
 `web` uses a [Puma](https://github.com/puma/puma) webserver to expose an API with a RESTful interface (and [Devise](https://github.com/plataformatec/devise) token auth) to the DB and utilises ActiveRecord CRUD methods for database operations - the API returns JSON (the people's format).
 
@@ -25,7 +27,7 @@ The `web` application then exposes itself as 'ready for connections' to the `Rab
 
 The `server` container is an Nginx server which routes traffic away from the API if necessary.
 
-From an Infrastructure as Code perspective, you could look at the `config.tf` file.
+For a viewpoint from an Infrastructure as Code perspective, you could look at the `config.tf` file.
 
 The whole thing is stitched together with Kubernetes and utilises a [kompose](https://github.com/kubernetes/kompose) format for deployment. It's a a one-pod-per-container setup with services exposing ports for interconnectivity of the pods. The architecture of it looks a bit like this:
 
