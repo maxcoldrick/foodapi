@@ -3,13 +3,14 @@
 A multi-container Kubernetes deployment.
 
 ## Usage
-`$ kompose up`
+With a Kubernetes cluster already running, and [Terraform](https://www.terraform.io/) installed and running, you can run `$ terraform apply` to initiate the cluster according to the Terraform config file: `config.tf`.
 
 ## The Principle
-Each of the following apps / services run in their own containers / pods: `web`, `db`, `rabbitmq`,`server`, `java`.
+Each of the following apps / services can run in their own containers / pods: `web`, `db`, `rabbitmq`,`server`, `java`.
 
+`server` and `java` are mostly optional.
 
-The `web` application initialises the tables in the PostgreSQL database that is running on `db` 
+The `web` application initialises the tables in the PostgreSQL database that is running on `db`
 
 `web` uses a [Puma](https://github.com/puma/puma) webserver to expose an API with a RESTful interface (and [Devise](https://github.com/plataformatec/devise) token auth) to the DB and utilises ActiveRecord CRUD methods for database operations - the API returns JSON (the people's format).
 
