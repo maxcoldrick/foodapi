@@ -1,5 +1,38 @@
 provider "kubernetes" {}
 
+resource "kubernetes_ingress" "routing_ingress" {
+  metadata {
+    name = "routing-ingress"
+  }
+
+  spec {
+    backend {
+      service_name = "web"
+      service_port = 3000
+    }
+
+    rule {
+      http {
+        path {
+          backend {
+            service_name = "web"
+            service_port = 3000
+          }
+
+          path = "/food/*"
+        }
+      }
+      host="maxcoldrick.com"
+    }
+
+    tls {
+      secret_name = "tls-secret"
+    }
+  }
+}
+
+
+
 resource "kubernetes_pod" "web" {
   metadata {
     name = "web"
