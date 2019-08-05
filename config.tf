@@ -42,19 +42,18 @@ resource "kubernetes_ingress" "routing_ingress" {
 
   spec {
     backend {
-      service_name = "frontend"
-      service_port = 80
+      service_name = "web"
+      service_port = 3000
     }
 
     rule {
       http {
         path {
           backend {
-            service_name = "web"
-            service_port = 3000
+            service_name = "frontend"
+            service_port = 8080
           }
-
-          path = "/food/*"
+          path = "/eggs/"
         }
       }
       host="maxcoldrick.com"
