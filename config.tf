@@ -1,5 +1,40 @@
 provider "kubernetes" {}
 
+resource "kubernetes_pod" "frontend" {
+  metadata {
+    name = "frontend"
+    labels = {
+      app = "frontend"
+    }
+  }
+
+  spec {
+    container {
+      image = "maxcoldrick/foodapi-frontend"
+      name  = "frontend"
+      port {
+        container_port = 80
+      }
+    }
+    restart_policy = "Always"
+  }
+}
+
+resource "kubernetes_service" "frontend" {
+  metadata {
+    name = "frontend"
+  }
+  spec {
+    selector = {
+      name = "frontend"
+    }
+    port {
+      port        = 80
+      target_port = 80
+    }
+  }
+}
+
 resource "kubernetes_ingress" "routing_ingress" {
   metadata {
     name = "routing-ingress"
@@ -7,8 +42,8 @@ resource "kubernetes_ingress" "routing_ingress" {
 
   spec {
     backend {
-      service_name = "web"
-      service_port = 3000
+      service_name = "frontend"
+      service_port = 80
     }
 
     rule {
@@ -30,8 +65,6 @@ resource "kubernetes_ingress" "routing_ingress" {
     }
   }
 }
-
-
 
 resource "kubernetes_pod" "web" {
   metadata {
