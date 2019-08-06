@@ -4,7 +4,7 @@ resource "kubernetes_pod" "frontend" {
   metadata {
     name = "frontend"
     labels = {
-      app = "frontend"
+      App = "frontend"
     }
   }
 
@@ -26,11 +26,29 @@ resource "kubernetes_service" "frontend" {
   }
   spec {
     selector = {
-      name = "frontend"
+      App = "${kubernetes_pod.frontend.metadata.0.labels.App}"
     }
     port {
+      name        = "80"
       port        = 80
       target_port = 80
+    }
+    type = "LoadBalancer"
+  }
+}
+
+resource "kubernetes_service" "web" {
+  metadata {
+    name = "web"
+  }
+  spec {
+    selector = {
+      app = "${kubernetes_pod.web.metadata.0.labels.app}"
+    }
+    port {
+      name        = "3000"
+      port        = 3000
+      target_port = 3000
     }
   }
 }
@@ -41,19 +59,20 @@ resource "kubernetes_ingress" "routing_ingress" {
   }
 
   spec {
+
     backend {
-      service_name = "web"
-      service_port = 3000
+      service_name = "frontend"
+      service_port = 80
     }
 
     rule {
       http {
         path {
           backend {
-            service_name = "frontend"
-            service_port = 8080
+            service_name = "web"
+            service_port = 3000
           }
-          path = "/eggs/"
+          path = "/food/"
         }
       }
       host="maxcoldrick.com"
@@ -89,22 +108,6 @@ resource "kubernetes_pod" "web" {
       }
     }
     restart_policy = "Always"
-  }
-}
-
-resource "kubernetes_service" "web" {
-  metadata {
-    name = "web"
-  }
-  spec {
-    selector = {
-      app = "${kubernetes_pod.web.metadata.0.labels.app}"
-    }
-    port {
-      name        = "3000"
-      port        = 3000
-      target_port = 3000
-    }
   }
 }
 
