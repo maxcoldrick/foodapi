@@ -4,7 +4,7 @@ resource "kubernetes_pod" "frontend" {
   metadata {
     name = "frontend"
     labels = {
-      App = "frontend"
+      app = "frontend"
     }
   }
 
@@ -26,7 +26,7 @@ resource "kubernetes_service" "frontend" {
   }
   spec {
     selector = {
-      App = "${kubernetes_pod.frontend.metadata.0.labels.App}"
+      app = "${kubernetes_pod.frontend.metadata.0.labels.app}"
     }
     port {
       name        = "80"
