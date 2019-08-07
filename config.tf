@@ -34,7 +34,6 @@ resource "kubernetes_service" "frontend" {
       port        = 80
       target_port = 80
     }
-    type = "LoadBalancer"
   }
 }
 
@@ -93,8 +92,10 @@ resource "kubernetes_pod" "web" {
     }
   }
 
+
   spec {
     container {
+      image_pull_policy = "Always"
       image = "maxcoldrick/foodapi"
       name  = "web"
       args = ["puma"]

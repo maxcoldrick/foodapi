@@ -10,7 +10,7 @@ A Kubernetes Cluster
 
 To initiate the Kubernetes cluster according to the Terraform config file: `config.tf`:
 
-`$ terraform apply` 
+`$ terraform apply`
 
 ## The Principle
 Each of the following apps / services can run in their own containers / pods: `web`, `db`, `rabbitmq`,`server`, `java`.
@@ -202,3 +202,20 @@ Example response:
 ```
 ###### Alternatives
 You could also use this Postman collection: https://www.getpostman.com/collections/71d21d4a010bc0528206
+
+###### Some Useful Commands
+```
+# Get events for container startup. Hanging ContainerCreating
+kc describe pods
+
+# Tail logs on pod
+kc logs --follow $pod
+
+# sh shell usually only installed on alpine images
+- kubectl exec -it $pod -- /bin/sh
+-- apk update && apk add curl
+
+# Scale down & up
+kubectl scale deployment java --replicas=0
+kubectl scale deployment java --replicas=1
+```
