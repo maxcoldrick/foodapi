@@ -12,6 +12,7 @@ resource "kubernetes_pod" "frontend" {
     container {
       image = "maxcoldrick/foodapi-frontend"
       name  = "frontend"
+      image_pull_policy = "Always"
       port {
         container_port = 80
       }
