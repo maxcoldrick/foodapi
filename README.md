@@ -203,16 +203,8 @@ Example response:
 ###### Alternatives
 You could also use this Postman collection: https://www.getpostman.com/collections/71d21d4a010bc0528206
 
-###### Some Useful Commands and common mistakes
+###### Some Useful Commands
 ```
-# <none> shown for the docker container
-docker tag e4209f97e819 myName/myApp:latest
-
-# The 192 address of the cluster is accessible via the minikube ip command
-
-# tf destroy doesn't destroy resources
-Ensure you're running tf destroy from the same dir as the .tf config file
-
 # Get events for container startup. Hanging ContainerCreating
 kc describe pods
 

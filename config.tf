@@ -71,9 +71,15 @@ resource "kubernetes_ingress" "routing_ingress" {
             service_name = "web"
             service_port = 3000
           }
+          # Bug?
+          # If it goes from /food/ to web, then you never get to /auth
+          # But, if it goes from / to web then it'll never get to
+          #  the frontend which is on frontend:80
+          # 
           path = "/food/"
         }
       }
+      host="maxcoldrick.com"
     }
 
     tls {
